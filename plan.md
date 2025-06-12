@@ -7,7 +7,7 @@
 | 创建型 | Abstract Factory | 抽象工厂模式 | 已完成✅ |
 | 创建型 | Builder | 建造者模式 | 未开始 |
 | 创建型 | Prototype | 原型模式 | 未开始 |
-| 结构型 | Adapter | 适配器模式 | 未开始 |
+| 结构型 | Adapter | 适配器模式 | 已完成✅ |
 | 结构型 | Decorator | 装饰器模式 | 未开始 |
 | 结构型 | Proxy | 代理模式 | 未开始 |
 | 结构型 | Facade | 外观模式 | 未开始 |
