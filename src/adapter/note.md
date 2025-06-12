@@ -33,15 +33,31 @@
 *   **问题**: 你有一个现有的、功能强大的类（**被适配者 Adaptee**），但它的接口（方法名、参数等）与你当前系统所期望的接口（**目标 Target**）不匹配。你不想或不能修改现有类。
 *   **解决方案**: 创建一个**适配器 (Adapter)** 类。这个适配器类实现你系统所需的`Target`接口，但在内部，它会去调用那个`Adaptee`类的方法来完成实际工作。这样，客户端代码就可以通过标准的`Target`接口来使用`Adaptee`了。
 
-### 具体应用场景：统一第三方支付接口
+### 具体应用场景：在"策略模式"中兼容第三方接口
 
-想象你的电商平台需要集成多种第三方支付服务（如支付宝、微信支付、PayPal）。每个支付服务都有自己独特的API接口（方法名、参数顺序等）。
+> **注意**: 这是一个非常深刻且常见的场景，它体现了**适配器模式**与**策略模式**的结合使用。
 
-*   **问题**: 如果你的业务逻辑直接调用这些差异巨大的第三方API，那么每增加一个新的支付方式，或某个支付方式的API发生变化，你都需要修改大量的业务代码，这将导致代码混乱且难以维护。
+想象你的电商平台需要集成多种第三方支付服务（如支付宝、微信支付、PayPal），并允许用户在运行时选择使用哪一种。
 
-*   **解决方案**: 定义一个统一的**目标接口 (Target)**，例如 `PaymentGateway`，它包含 `processPayment(amount, currency)` 等方法。然后，为每个第三方支付服务创建一个**适配器 (Adapter)**。例如，`AlipayAdapter` 实现 `PaymentGateway` 接口，并在其内部调用支付宝的API；`WechatPayAdapter` 同样实现 `PaymentGateway` 接口，并在内部调用微信支付的API。
+*   **从行为上看，这是"策略模式"**: 系统有多种支付**策略**，客户端（订单服务）可以在运行时动态选择其中一种来执行"支付"这个**行为**。因此，系统应该定义一个统一的策略接口，如 `PaymentStrategy`。
 
-    这样，你的电商平台业务逻辑就只与统一的 `PaymentGateway` 接口交互，完全屏蔽了底层支付服务的具体实现细节。无论底层有多少种支付方式，或者它们如何变化，你的核心业务代码都无需改动，只需增加或修改对应的适配器即可。
+*   **从接口兼容上看，这是"适配器模式"**: 每个第三方支付SDK（`AlipaySDK`, `WechatPaySDK`）的接口都是独特的，与我们系统内部定义的 `PaymentStrategy` 接口不兼容。我们无法修改第三方SDK的代码。
+
+*   **解决方案**: 为每一种支付方式创建一个**适配器**，让这个适配器**同时实现**我们的`PaymentStrategy`接口。
+
+    ```java
+    // AlipayAdapter 同时是"适配器"也是一个"策略"
+    public class AlipayAdapter implements PaymentStrategy {
+        private AlipaySDK adaptee = new AlipaySDK(); // 被适配者
+
+        @Override
+        public void pay(BigDecimal amount) {
+            // 将我们系统的标准调用，适配成支付宝SDK的独特调用
+            adaptee.specialPay(amount, "CNY", "your_partner_id");
+        }
+    }
+    ```
+    这样，你的电商平台业务逻辑就只与统一的 `PaymentStrategy` 接口交互（策略模式的优势），同时通过适配器优雅地兼容了各种外部接口（适配器模式的优势）。
 
 ## 模式中的角色
 
@@ -123,4 +139,4 @@ public class Main {
         newLogger.error("这是适配器模式的错误日志。");
     }
 }
-``` 
+```
