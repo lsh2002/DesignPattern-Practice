@@ -16,9 +16,9 @@
 
 | 模式名称 | 英文名称 | 状态 | 学习笔记 |
 | :--- | :--- | :---: | :---: |
-| **单例模式** | Singleton | 已完成 | [笔记](./src/singleton/remark.md) |
-| **工厂方法模式** | Factory Method | 已完成 | [笔记](./src/factorymethod/note.md) |
-| **抽象工厂模式** | Abstract Factory | 已完成 | [笔记](./src/abstractfactory/note.md) |
+| **单例模式** | Singleton | 已完成✅ | [笔记](./src/singleton/remark.md) |
+| **工厂方法模式** | Factory Method | 已完成✅ | [笔记](./src/factorymethod/note.md) |
+| **抽象工厂模式** | Abstract Factory | 已完成✅ | [笔记](./src/abstractfactory/note.md) |
 | **建造者模式** | Builder | 未开始 | - |
 | **原型模式** | Prototype | 未开始 | - |
 
@@ -28,7 +28,7 @@
 
 | 模式名称 | 英文名称 | 状态 | 学习笔记 |
 | :--- | :--- | :---: | :---: |
-| **适配器模式** | Adapter | 已完成 | [笔记](./src/adapter/note.md) |
+| **适配器模式** | Adapter | 已完成✅ | [笔记](./src/adapter/note.md) |
 | **装饰器模式** | Decorator | 未开始 | - |
 | **代理模式** | Proxy | 未开始 | - |
 | **外观模式** | Facade | 未开始 | - |
